@@ -1,25 +1,40 @@
 name: Actualizar Tabla Futbol Chile
+
 on:
   schedule:
-    - cron: '0 14,2 * * *'       # 10 AM y 10 PM Chile
-    - cron: '0 22 * * 0,3,6'     # 6 PM (Mié, Sáb, Dom)
-    - cron: '0 0,4 * * 1,4,0'    # 8 PM y 12 AM (Cierres de jornada)
+    # --- HORARIOS OPTIMIZADOS (HORA CHILE UTC-4) ---
+    - cron: '0 14,2 * * *'       # 10:00 AM y 10:00 PM Chile
+    - cron: '0 22 * * 0,3,6'     # 6:00 PM (Mié, Sáb, Dom)
+    - cron: '0 0,4 * * 1,4,0'    # 8:00 PM y 11:59 PM (Cierres de jornada)
   workflow_dispatch:
+
 permissions:
   contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: 📥 Descargar repositorio
+        uses: actions/checkout@v4 # <--- ACTUALIZADO A V4
+
+      - name: 🐍 Configurar Python
+        uses: actions/setup-python@v5 # <--- ACTUALIZADO A V5
         with:
-          python-version: '3.9'
-      - run: pip install requests beautifulsoup4
-      - run: python scraper_futbol.py
-      - run: |
+          python-version: '3.11' # <--- Opcional: Subimos a una versión de Python más moderna
+
+      - name: 📦 Instalar librerías
+        run: |
+          pip install requests beautifulsoup4
+
+      - name: 🚀 Ejecutar Scraper de Fútbol
+        run: python scraper_futbol.py
+
+      - name: 💾 Guardar cambios en el JSON
+        run: |
           git config --global user.name "Duplos Bot"
           git config --global user.email "bot@duplos.cl"
           git add futbol_chile.json
-          git commit -m "⚽ Tabla actualizada" || exit 0
+          git commit -m "⚽ Tabla actualizada automáticamente" || exit 0
           git push
