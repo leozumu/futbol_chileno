@@ -1,5 +1,118 @@
 {
     "fecha_actualizacion": "15 de Abril, 2026",
-    "liga": "Primera División",
-    "standings": []
+    "liga": "Primera División de Chile",
+    "standings": [
+        {
+            "pos": "1",
+            "club": "Colo Colo",
+            "pj": "8",
+            "dg": "+5",
+            "pts": "18"
+        },
+        {
+            "pos": "2",
+            "club": "Deportes Limache",
+            "pj": "9",
+            "dg": "+11",
+            "pts": "17"
+        },
+        {
+            "pos": "3",
+            "club": "Universidad Católica",
+            "pj": "9",
+            "dg": "+9",
+            "pts": "17"
+        },
+        {
+            "pos": "4",
+            "club": "Ñublense",
+            "pj": "9",
+            "dg": "+4",
+            "pts": "16"
+        },
+        {
+            "pos": "5",
+            "club": "Huachipato",
+            "pj": "9",
+            "dg": "+3",
+            "pts": "15"
+        },
+        {
+            "pos": "6",
+            "club": "Universidad de Concepción",
+            "pj": "9",
+            "dg": "-6",
+            "pts": "14"
+        },
+        {
+            "pos": "7",
+            "club": "Universidad de Chile",
+            "pj": "9",
+            "dg": "+4",
+            "pts": "13"
+        },
+        {
+            "pos": "8",
+            "club": "O'Higgins",
+            "pj": "9",
+            "dg": "-2",
+            "pts": "13"
+        },
+        {
+            "pos": "9",
+            "club": "Coquimbo Unido",
+            "pj": "8",
+            "dg": "+1",
+            "pts": "12"
+        },
+        {
+            "pos": "10",
+            "club": "La Serena",
+            "pj": "9",
+            "dg": "-1",
+            "pts": "12"
+        },
+        {
+            "pos": "11",
+            "club": "Everton CD",
+            "pj": "9",
+            "dg": "0",
+            "pts": "11"
+        },
+        {
+            "pos": "12",
+            "club": "Palestino",
+            "pj": "9",
+            "dg": "-4",
+            "pts": "11"
+        },
+        {
+            "pos": "13",
+            "club": "Audax Italiano",
+            "pj": "9",
+            "dg": "0",
+            "pts": "10"
+        },
+        {
+            "pos": "14",
+            "club": "Cobresal",
+            "pj": "9",
+            "dg": "-3",
+            "pts": "10"
+        },
+        {
+            "pos": "15",
+            "club": "Unión La Calera",
+            "pj": "9",
+            "dg": "-11",
+            "pts": "7"
+        },
+        {
+            "pos": "16",
+            "club": "Deportes Concepcion",
+            "pj": "9",
+            "dg": "-10",
+            "pts": "4"
+        }
+    ]
 }
