@@ -2,74 +2,70 @@ import requests
 from bs4 import BeautifulSoup
 import json
 
-def scraping_futbol():
-    # Puedes cambiar esta URL por cualquier categoría de campeonatochileno.cl
-    url = "https://www.campeonatochileno.cl/ligas/liga-de-primera-mercado-libre/"
-    
+def scraping_futbol_final():
+    # URL de ESPN Chile (La fuente más estable para scraping estático)
+    url = "https://www.espn.cl/futbol/posiciones/_/liga/chi.1"
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
     }
     
     try:
-        print(f"Conectando a: {url}")
+        print(f"Analizando fuente de datos: {url}")
         response = requests.get(url, headers=headers, timeout=15)
         soup = BeautifulSoup(response.text, 'html.parser')
         
-        # 1. Buscamos la tabla de posiciones
-        tabla = soup.find('table')
-        if not tabla:
-            print("No se encontró ninguna tabla en la página.")
-            return
-
-        # 2. Mapeo dinámico de columnas (Buscamos los índices de J, DIF y PTS)
-        thead = tabla.find('thead')
-        headers_list = [th.get_text(strip=True).upper() for th in thead.find_all('th')]
-        
-        # Buscamos en qué posición están los datos que necesitamos
-        try:
-            idx_club = 1 # El club siempre es la segunda columna
-            idx_pj = headers_list.index('J') if 'J' in headers_list else 2
-            idx_dif = headers_list.index('DIF') if 'DIF' in headers_list else 8
-            idx_pts = headers_list.index('PTS') if 'PTS' in headers_list else 9
-            print(f"Columnas detectadas -> PJ: {idx_pj}, DIF: {idx_dif}, PTS: {idx_pts}")
-        except ValueError:
-            print("No se encontraron los encabezados esperados. Usando índices por defecto.")
-            idx_club, idx_pj, idx_dif, idx_pts = 1, 2, 8, 9
-
-        # 3. Extraer los datos de las filas
         standings = []
-        filas = tabla.find('tbody').find_all('tr')
         
-        for fila in filas:
-            cols = fila.find_all('td')
-            if len(cols) >= max(idx_pj, idx_dif, idx_pts):
-                # Limpiamos el nombre del club (a veces traen la zona o grupo)
-                nombre_raw = cols[idx_club].get_text(strip=True)
-                # Si el nombre es muy largo, lo cortamos para la App
-                nombre_limpio = nombre_raw.split('\n')[0].strip()
+        # 1. Ubicamos la tabla de Nombres (Fixed Left)
+        table_names = soup.find('table', class_='Table--fixed-left')
+        # 2. Ubicamos la tabla de Estadísticas (Scroller)
+        table_stats = soup.find('div', class_='Table__Scroller').find('table')
+
+        if table_names and table_stats:
+            # Extraemos las filas de ambas (saltando el encabezado)
+            rows_names = table_names.find('tbody').find_all('tr')
+            rows_stats = table_stats.find('tbody').find_all('tr')
+
+            for i in range(len(rows_names)):
+                # --- Lógica para la Tabla de Nombres ---
+                pos = rows_names[i].find('span', class_='team-position').get_text(strip=True)
+                # Buscamos el nombre en el span que no es para mobile para que salga completo
+                nombre = rows_names[i].find('span', class_='hide-mobile').get_text(strip=True)
+                
+                # --- Lógica para la Tabla de Números ---
+                cols = rows_stats[i].find_all('td')
+                
+                # Según el código fuente que enviaste, el orden es:
+                # [0]GP (PJ), [1]W, [2]D, [3]L, [4]GF, [5]GA, [6]GD (DG), [7]P (PTS)
+                pj = cols[0].get_text(strip=True)
+                dg = cols[6].get_text(strip=True)
+                pts = cols[7].get_text(strip=True)
 
                 standings.append({
-                    "pos": cols[0].get_text(strip=True).replace('.', ''),
-                    "club": nombre_limpio,
-                    "pj": cols[idx_pj].get_text(strip=True),
-                    "dg": cols[idx_dif].get_text(strip=True),
-                    "pts": cols[idx_pts].get_text(strip=True)
+                    "pos": pos,
+                    "club": nombre,
+                    "pj": pj,
+                    "dg": dg,
+                    "pts": pts
                 })
 
-        print(f"¡Éxito! Se extrajeron {len(standings)} equipos.")
+            print(f"✅ ¡Proceso exitoso! {len(standings)} equipos sincronizados.")
+        else:
+            print("❌ No se detectó la estructura de tablas esperada.")
 
+        # Guardamos el archivo final para tu WebApp
         output = {
             "fecha_actualizacion": "15 de Abril, 2026",
-            "liga": "Fútbol Chileno - Tabla Actualizada",
+            "liga": "Primera División de Chile",
             "standings": standings
         }
 
         with open('futbol_chile.json', 'w', encoding='utf-8') as f:
             json.dump(output, f, ensure_ascii=False, indent=4)
-            print("Archivo futbol_chile.json actualizado.")
+            print("📂 Archivo 'futbol_chile.json' generado con éxito.")
 
     except Exception as e:
-        print(f"Error detectado: {str(e)}")
+        print(f"❌ Error crítico: {str(e)}")
 
 if __name__ == "__main__":
-    scraping_futbol()
+    scraping_futbol_final()
