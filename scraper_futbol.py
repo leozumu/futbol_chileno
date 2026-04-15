@@ -3,73 +3,65 @@ from bs4 import BeautifulSoup
 import json
 
 def scraping_futbol():
-    # Usaremos una URL que suele ser más amigable con los scrapers
-    url = "https://www.campeonatochileno.cl/ligas/liga-de-primera-mercado-libre/"
+    # URL de ESPN Chile (Primera División) - Muy amigable para scraping
+    url = "https://www.espn.cl/futbol/posiciones/_/liga/chi.1"
     
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-        'Referer': 'https://www.google.com/'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
     }
     
     try:
-        print(f"Intentando conectar con: {url}")
+        print(f"Conectando a fuente alternativa (ESPN): {url}")
         response = requests.get(url, headers=headers, timeout=15)
-        print(f"Respuesta del servidor: {response.status_code}")
-
-        if response.status_code != 200:
-            print("Error: El servidor bloqueó la petición.")
-            return
-
         soup = BeautifulSoup(response.text, 'html.parser')
         
-        # BUSQUEDA FLEXIBLE: Buscamos todas las tablas y filtramos la que tenga "PTS"
-        tablas = soup.find_all('table')
-        print(f"Tablas encontradas en la página: {len(tablas)}")
-        
-        target_table = None
-        for t in tablas:
-            texto_tabla = t.get_text().upper()
-            if "PTS" in texto_tabla or "PUNTOS" in texto_tabla:
-                target_table = t
-                print("¡Tabla de posiciones detectada!")
-                break
-        
+        # ESPN separa los nombres de los equipos de las estadísticas en dos tablas
+        # Vamos a unirlas de forma inteligente
         standings = []
-        if target_table:
-            # Intentamos agarrar las filas tanto de tbody como de tr directos
-            filas = target_table.select('tbody tr') or target_table.find_all('tr')
-            
-            for fila in filas:
-                cols = fila.find_all(['td', 'th'])
-                # Filtramos para que sean filas con datos reales (normalmente > 8 columnas)
-                if len(cols) >= 9:
-                    pos = cols[0].get_text(strip=True).replace('.', '')
-                    # Solo procesamos si la primera columna es un número (la posición)
-                    if pos.isdigit():
-                        standings.append({
-                            "pos": pos,
-                            "club": cols[1].get_text(strip=True),
-                            "pj": cols[2].get_text(strip=True),
-                            "dg": cols[8].get_text(strip=True),
-                            "pts": cols[9].get_text(strip=True)
-                        })
         
-        print(f"Total de equipos extraídos: {len(standings)}")
+        # 1. Obtenemos los nombres y posiciones
+        table_teams = soup.find('table', class_='Table--fixed-left')
+        # 2. Obtenemos las estadísticas (PJ, DG, PTS)
+        table_stats = soup.find('div', class_='Table__Scroller').find('table') if soup.find('div', class_='Table__Scroller') else None
 
-        # Guardar resultado
+        if table_teams and table_stats:
+            rows_teams = table_teams.find_all('tr')[1:] # Saltamos el encabezado
+            rows_stats = table_stats.find_all('tr')[1:] # Saltamos el encabezado
+
+            for i in range(len(rows_teams)):
+                # Datos del equipo
+                pos = rows_teams[i].find('span', class_='team-position').get_text(strip=True)
+                nombre = rows_teams[i].find('span', class_='hide-mobile').get_text(strip=True)
+                
+                # Datos de estadísticas
+                cols_stats = rows_stats[i].find_all('td')
+                pj = cols_stats[0].get_text(strip=True)
+                dg = cols_stats[7].get_text(strip=True) # ESPN usa la columna 7 para Dif Goles
+                pts = cols_stats[8].get_text(strip=True) # ESPN usa la columna 8 para Puntos
+
+                standings.append({
+                    "pos": pos,
+                    "club": nombre,
+                    "pj": pj,
+                    "dg": dg,
+                    "pts": pts
+                })
+
+        print(f"¡Éxito! Se extrajeron {len(standings)} equipos.")
+
         output = {
             "fecha_actualizacion": "15 de Abril, 2026",
-            "liga": "Primera División",
+            "liga": "Primera División de Chile",
+            "fuente": "ESPN / DUPLOS.CL",
             "standings": standings
         }
 
         with open('futbol_chile.json', 'w', encoding='utf-8') as f:
             json.dump(output, f, ensure_ascii=False, indent=4)
-            print("Archivo futbol_chile.json actualizado.")
+            print("Archivo futbol_chile.json actualizado con éxito.")
 
     except Exception as e:
-        print(f"Ocurrió un error: {str(e)}")
+        print(f"Error en el proceso: {str(e)}")
 
 if __name__ == "__main__":
     scraping_futbol()
