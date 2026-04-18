@@ -4,17 +4,17 @@
     "standings": [
         {
             "pos": "1",
+            "club": "Deportes Limache",
+            "pj": "10",
+            "dg": "+14",
+            "pts": "20"
+        },
+        {
+            "pos": "2",
             "club": "Colo Colo",
             "pj": "8",
             "dg": "+5",
             "pts": "18"
-        },
-        {
-            "pos": "2",
-            "club": "Deportes Limache",
-            "pj": "9",
-            "dg": "+11",
-            "pts": "17"
         },
         {
             "pos": "3",
@@ -40,8 +40,8 @@
         {
             "pos": "6",
             "club": "Universidad de Concepción",
-            "pj": "9",
-            "dg": "-6",
+            "pj": "10",
+            "dg": "-9",
             "pts": "14"
         },
         {
