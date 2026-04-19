@@ -26,51 +26,51 @@
         {
             "pos": "4",
             "club": "Ñublense",
-            "pj": "9",
+            "pj": "10",
             "dg": "+4",
-            "pts": "16"
+            "pts": "17"
         },
         {
             "pos": "5",
+            "club": "O'Higgins",
+            "pj": "10",
+            "dg": "-1",
+            "pts": "16"
+        },
+        {
+            "pos": "6",
             "club": "Huachipato",
             "pj": "9",
             "dg": "+3",
             "pts": "15"
         },
         {
-            "pos": "6",
+            "pos": "7",
             "club": "Universidad de Chile",
             "pj": "10",
             "dg": "+4",
             "pts": "14"
         },
         {
-            "pos": "7",
+            "pos": "8",
             "club": "Universidad de Concepción",
             "pj": "10",
             "dg": "-9",
             "pts": "14"
         },
         {
-            "pos": "8",
-            "club": "La Serena",
-            "pj": "10",
-            "dg": "-1",
-            "pts": "13"
-        },
-        {
             "pos": "9",
-            "club": "O'Higgins",
+            "club": "Coquimbo Unido",
             "pj": "9",
-            "dg": "-2",
+            "dg": "+1",
             "pts": "13"
         },
         {
             "pos": "10",
-            "club": "Coquimbo Unido",
-            "pj": "8",
-            "dg": "+1",
-            "pts": "12"
+            "club": "La Serena",
+            "pj": "10",
+            "dg": "-1",
+            "pts": "13"
         },
         {
             "pos": "11",
@@ -96,8 +96,8 @@
         {
             "pos": "14",
             "club": "Cobresal",
-            "pj": "9",
-            "dg": "-3",
+            "pj": "10",
+            "dg": "-4",
             "pts": "10"
         },
         {
