@@ -39,45 +39,45 @@
         },
         {
             "pos": "6",
+            "club": "Universidad de Chile",
+            "pj": "10",
+            "dg": "+4",
+            "pts": "14"
+        },
+        {
+            "pos": "7",
             "club": "Universidad de Concepción",
             "pj": "10",
             "dg": "-9",
             "pts": "14"
         },
         {
-            "pos": "7",
-            "club": "Universidad de Chile",
-            "pj": "9",
-            "dg": "+4",
+            "pos": "8",
+            "club": "La Serena",
+            "pj": "10",
+            "dg": "-1",
             "pts": "13"
         },
         {
-            "pos": "8",
+            "pos": "9",
             "club": "O'Higgins",
             "pj": "9",
             "dg": "-2",
             "pts": "13"
         },
         {
-            "pos": "9",
+            "pos": "10",
             "club": "Coquimbo Unido",
             "pj": "8",
             "dg": "+1",
             "pts": "12"
         },
         {
-            "pos": "10",
-            "club": "La Serena",
-            "pj": "9",
-            "dg": "-1",
-            "pts": "12"
-        },
-        {
             "pos": "11",
             "club": "Everton CD",
-            "pj": "9",
+            "pj": "10",
             "dg": "0",
-            "pts": "11"
+            "pts": "12"
         },
         {
             "pos": "12",
@@ -110,9 +110,9 @@
         {
             "pos": "16",
             "club": "Deportes Concepcion",
-            "pj": "9",
+            "pj": "10",
             "dg": "-10",
-            "pts": "4"
+            "pts": "5"
         }
     ]
 }
