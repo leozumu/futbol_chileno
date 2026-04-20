@@ -12,8 +12,8 @@
         {
             "pos": "2",
             "club": "Colo Colo",
-            "pj": "8",
-            "dg": "+5",
+            "pj": "9",
+            "dg": "+4",
             "pts": "18"
         },
         {
@@ -53,38 +53,38 @@
         },
         {
             "pos": "8",
+            "club": "Palestino",
+            "pj": "10",
+            "dg": "-3",
+            "pts": "14"
+        },
+        {
+            "pos": "9",
             "club": "Universidad de Concepción",
             "pj": "10",
             "dg": "-9",
             "pts": "14"
         },
         {
-            "pos": "9",
+            "pos": "10",
             "club": "Coquimbo Unido",
             "pj": "9",
             "dg": "+1",
             "pts": "13"
         },
         {
-            "pos": "10",
+            "pos": "11",
             "club": "La Serena",
             "pj": "10",
             "dg": "-1",
             "pts": "13"
         },
         {
-            "pos": "11",
+            "pos": "12",
             "club": "Everton CD",
             "pj": "10",
             "dg": "0",
             "pts": "12"
-        },
-        {
-            "pos": "12",
-            "club": "Palestino",
-            "pj": "9",
-            "dg": "-4",
-            "pts": "11"
         },
         {
             "pos": "13",
