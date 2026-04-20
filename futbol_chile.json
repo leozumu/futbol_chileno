@@ -11,38 +11,38 @@
         },
         {
             "pos": "2",
+            "club": "Huachipato",
+            "pj": "10",
+            "dg": "+4",
+            "pts": "18"
+        },
+        {
+            "pos": "3",
             "club": "Colo Colo",
             "pj": "9",
             "dg": "+4",
             "pts": "18"
         },
         {
-            "pos": "3",
+            "pos": "4",
             "club": "Universidad Católica",
             "pj": "9",
             "dg": "+9",
             "pts": "17"
         },
         {
-            "pos": "4",
+            "pos": "5",
             "club": "Ñublense",
             "pj": "10",
             "dg": "+4",
             "pts": "17"
         },
         {
-            "pos": "5",
+            "pos": "6",
             "club": "O'Higgins",
             "pj": "10",
             "dg": "-1",
             "pts": "16"
-        },
-        {
-            "pos": "6",
-            "club": "Huachipato",
-            "pj": "9",
-            "dg": "+3",
-            "pts": "15"
         },
         {
             "pos": "7",
@@ -89,8 +89,8 @@
         {
             "pos": "13",
             "club": "Audax Italiano",
-            "pj": "9",
-            "dg": "0",
+            "pj": "10",
+            "dg": "-1",
             "pts": "10"
         },
         {
